@@ -1,0 +1,88 @@
+-- 用户表
+CREATE TABLE user (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    avatar TEXT,
+    created_at INTEGER NOT NULL,
+    updated_at INTEGER NOT NULL
+);
+
+-- 搜索历史表
+CREATE TABLE search_history (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    keyword TEXT NOT NULL,
+    timestamp INTEGER NOT NULL
+);
+
+-- 消息表
+CREATE TABLE message (
+    id TEXT PRIMARY KEY,
+    content TEXT NOT NULL,
+    sender_id TEXT NOT NULL,
+    receiver_id TEXT NOT NULL,
+    timestamp INTEGER NOT NULL,
+    is_read INTEGER NOT NULL DEFAULT 0
+);
+
+-- Banner表
+CREATE TABLE banner (
+    id TEXT PRIMARY KEY,
+    title TEXT NOT NULL,
+    image_url TEXT NOT NULL,
+    link_url TEXT,
+    order_index INTEGER NOT NULL,
+    is_active INTEGER NOT NULL DEFAULT 1
+);
+
+-- 用户相关查询
+insertUser:
+INSERT INTO user (id, name, email, avatar, created_at, updated_at)
+VALUES (?, ?, ?, ?, ?, ?);
+
+getUserById:
+SELECT * FROM user WHERE id = ?;
+
+getAllUsers:
+SELECT * FROM user ORDER BY created_at DESC;
+
+updateUser:
+UPDATE user 
+SET name = ?, email = ?, avatar = ?, updated_at = ?
+WHERE id = ?;
+
+deleteUser:
+DELETE FROM user WHERE id = ?;
+
+-- 搜索历史相关查询
+insertSearchHistory:
+INSERT INTO search_history (keyword, timestamp)
+VALUES (?, ?);
+
+getSearchHistory:
+SELECT * FROM search_history 
+ORDER BY timestamp DESC 
+LIMIT ?;
+
+clearSearchHistory:
+DELETE FROM search_history;
+
+-- 消息相关查询
+insertMessage:
+INSERT INTO message (id, content, sender_id, receiver_id, timestamp, is_read)
+VALUES (?, ?, ?, ?, ?, ?);
+
+getMessagesByConversation:
+SELECT * FROM message 
+WHERE (sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?)
+ORDER BY timestamp ASC;
+
+-- Banner相关查询
+insertBanner:
+INSERT INTO banner (id, title, image_url, link_url, order_index, is_active)
+VALUES (?, ?, ?, ?, ?, ?);
+
+getActiveBanners:
+SELECT * FROM banner 
+WHERE is_active = 1 
+ORDER BY order_index ASC;

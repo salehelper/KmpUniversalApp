@@ -1,0 +1,272 @@
+package com.example.kmpuniversalapp.navigation
+
+import com.example.kmpuniversalapp.libs.utils.log.AppLogger
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+
+/**
+ * 路由使用示例
+ * 展示如何使用GetX风格的路由系统
+ */
+class RouterUsageExample : KoinComponent {
+    
+    private val router: GetXStyleRouter by inject()
+    
+    /**
+     * 基础导航示例
+     */
+    suspend fun basicNavigationExamples() {
+        // 1. 导航到指定页面
+        router.to(AppRoutes.HOME)
+        router.to(AppRoutes.SEARCH)
+        router.to(AppRoutes.MESSAGE)
+        router.to(AppRoutes.PROFILE)
+        
+        // 2. 替换当前页面
+        router.off(AppRoutes.LOGIN)
+        
+        // 3. 替换所有页面（清除历史）
+        router.offAll(AppRoutes.MAIN)
+        
+        // 4. 返回上一页
+        router.back()
+        
+        // 5. 返回到指定页面
+        router.backTo(AppRoutes.HOME)
+    }
+    
+    /**
+     * 带参数导航示例
+     */
+    suspend fun parameterNavigationExamples() {
+        // 1. 搜索详情页 - 使用扩展函数
+        router.toSearchDetail(
+            keyword = "Kotlin Multiplatform",
+            page = 1,
+            category = "technology"
+        )
+        
+        // 2. 消息详情页 - 使用扩展函数
+        router.toMessageDetail(
+            messageId = "msg_123",
+            conversationId = "conv_456"
+        )
+        
+        // 3. 用户详情页 - 使用扩展函数
+        router.toProfileDetail(
+            userId = "user_789",
+            tab = "posts"
+        )
+        
+        // 4. Banner详情页 - 使用扩展函数
+        router.toBannerDetail(
+            bannerId = "banner_001",
+            title = "新产品发布",
+            linkUrl = "https://example.com/product"
+        )
+        
+        // 5. 设置详情页 - 使用扩展函数
+        router.toSettingsDetail(
+            section = "privacy",
+            item = "data_usage"
+        )
+    }
+    
+    /**
+     * URL参数解析示例
+     */
+    fun urlParsingExamples() {
+        // 1. 解析完整URL
+        val url = "/search-detail?keyword=KMP&page=2&category=tech"
+        val result = UrlParser.parseUrl(url)
+        
+        if (result.isSuccess()) {
+            val keyword = result.getString("keyword")
+            val page = result.getInt("page")
+            val category = result.getStringOrNull("category")
+            
+            AppLogger.d("RouterUsageExample", "Parsed: keyword=$keyword, page=$page, category=$category")
+        }
+        
+        // 2. 构建URL
+        val builtUrl = "/search-detail".toUrlBuilder()
+            .addString("keyword", "Flutter")
+            .addInt("page", 3)
+            .addString("category", "mobile")
+            .build()
+        
+        AppLogger.d("RouterUsageExample", "Built URL: $builtUrl")
+        
+        // 3. 使用便捷构建方法
+        val searchUrl = UrlExamples.searchDetail("React Native", 1, "framework")
+        val messageUrl = UrlExamples.messageDetail("msg_999", "conv_888")
+        
+        AppLogger.d("RouterUsageExample", "Search URL: $searchUrl")
+        AppLogger.d("RouterUsageExample", "Message URL: $messageUrl")
+    }
+    
+    /**
+     * 参数获取示例
+     */
+    fun parameterRetrievalExamples() {
+        // 1. 获取当前页面参数
+        val currentParams = router.getCurrentParams()
+        val keyword = currentParams.getString("keyword", "")
+        val page = currentParams.getInt("page", 1)
+        
+        // 2. 获取指定参数
+        val messageId = router.getArgument("messageId")
+        val userId = router.getArgument("userId", "default_user")
+        val isActive = router.getArgument("isActive", false)
+        
+        AppLogger.d("RouterUsageExample", "Current params: keyword=$keyword, page=$page")
+        AppLogger.d("RouterUsageExample", "Message ID: $messageId, User ID: $userId, Active: $isActive")
+    }
+    
+    /**
+     * 状态检查示例
+     */
+    fun stateCheckExamples() {
+        // 1. 检查当前页面
+        val isHome = router.isCurrentPage(AppRoutes.HOME)
+        val isSearch = router.isCurrentPage(AppRoutes.SEARCH)
+        
+        // 2. 检查当前标签页
+        val isHomeTab = router.isCurrentTab("home")
+        val currentTabIndex = router.getCurrentTabIndex()
+        
+        // 3. 检查路由状态
+        val inAuthFlow = RouteState.isInAuthFlow(router)
+        val inMainFlow = RouteState.isInMainFlow(router)
+        val inDetailPage = RouteState.isInDetailPage(router)
+        val canGoBack = RouteState.canGoBack(router)
+        
+        AppLogger.d("RouterUsageExample", "Is Home: $isHome, Is Search: $isSearch")
+        AppLogger.d("RouterUsageExample", "Is Home Tab: $isHomeTab, Current Tab Index: $currentTabIndex")
+        AppLogger.d("RouterUsageExample", "In Auth Flow: $inAuthFlow, In Main Flow: $inMainFlow")
+        AppLogger.d("RouterUsageExample", "In Detail Page: $inDetailPage, Can Go Back: $canGoBack")
+    }
+    
+    /**
+     * 标签页导航示例
+     */
+    suspend fun tabNavigationExamples() {
+        // 1. 导航到指定标签页
+        router.toTab(0) // 首页
+        router.toTab(1) // 搜索
+        router.toTab(2) // 消息
+        router.toTab(3) // 个人中心
+        
+        // 2. 返回到指定标签页
+        router.backToHome()
+        router.backToSearch()
+        router.backToMessage()
+        router.backToProfile()
+    }
+    
+    /**
+     * 中间件示例
+     */
+    fun middlewareExamples() {
+        // 1. 注册自定义中间件
+        val customMiddleware = object : RouteMiddleware {
+            override val priority: Int = 2
+            
+            override suspend fun redirect(route: String): String? {
+                if (route.contains("admin") && !isAdmin()) {
+                    AppLogger.d("RouterUsageExample", "Redirecting admin route to login")
+                    return AppRoutes.LOGIN
+                }
+                return null
+            }
+            
+            override suspend fun canNavigate(route: String): Boolean {
+                return true
+            }
+            
+            private fun isAdmin(): Boolean {
+                // 检查管理员权限
+                return false
+            }
+        }
+        
+        router.registerMiddleware(customMiddleware)
+        
+        // 2. 注册自定义页面
+        val adminPage = GetPage(
+            name = "/admin",
+            page = "admin",
+            middlewares = listOf("auth", "admin"),
+            transition = RouteTransition.slideInRight,
+            duration = 500L
+        )
+        
+        router.registerPage(adminPage)
+    }
+    
+    /**
+     * 调试示例
+     */
+    fun debugExamples() {
+        // 1. 打印当前路由状态
+        RouteDebugger.printCurrentState(router)
+        
+        // 2. 打印路由历史
+        RouteDebugger.printRouteHistory(router)
+        
+        // 3. 检查当前路由
+        val currentRoute = router.currentRoute()
+        val arguments = router.arguments()
+        val canPop = router.canPop()
+        
+        AppLogger.d("RouterUsageExample", "Current Route: $currentRoute")
+        AppLogger.d("RouterUsageExample", "Arguments: $arguments")
+        AppLogger.d("RouterUsageExample", "Can Pop: $canPop")
+    }
+    
+    /**
+     * 完整使用流程示例
+     */
+    suspend fun completeWorkflowExample() {
+        AppLogger.d("RouterUsageExample", "=== Complete Workflow Example ===")
+        
+        // 1. 初始化路由
+        AppRouteManager.initialize(router)
+        
+        // 2. 导航到首页
+        router.toHome()
+        
+        // 3. 搜索功能
+        router.toSearch()
+        router.toSearchDetail("Kotlin", 1, "programming")
+        
+        // 4. 查看搜索结果详情
+        val searchParams = router.getCurrentParams()
+        val keyword = searchParams.getString("keyword")
+        val page = searchParams.getInt("page")
+        
+        AppLogger.d("RouterUsageExample", "Searching for: $keyword, page: $page")
+        
+        // 5. 返回搜索结果列表
+        router.back()
+        
+        // 6. 查看消息
+        router.toMessage()
+        router.toMessageDetail("msg_123", "conv_456")
+        
+        // 7. 返回消息列表
+        router.back()
+        
+        // 8. 查看个人中心
+        router.toProfile()
+        router.toProfileDetail("user_789", "settings")
+        
+        // 9. 返回个人中心
+        router.back()
+        
+        // 10. 返回首页
+        router.backToHome()
+        
+        AppLogger.d("RouterUsageExample", "=== Workflow Complete ===")
+    }
+}

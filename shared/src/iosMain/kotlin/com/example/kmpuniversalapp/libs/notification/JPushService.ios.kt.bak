@@ -1,0 +1,95 @@
+package com.example.kmpuniversalapp.libs.notification
+
+import com.example.kmpuniversalapp.libs.utils.log.AppLogger
+import platform.UIKit.UNUserNotificationCenter
+import platform.UIKit.UNNotificationSettings
+import platform.UIKit.UNAuthorizationStatus
+import platform.UIKit.UNAuthorizationStatusAuthorized
+import platform.UIKit.UNAuthorizationStatusDenied
+import platform.UIKit.UNAuthorizationStatusNotDetermined
+
+/**
+ * 极光推送服务 - iOS实现
+ * 使用expect/actual模式实现iOS特定功能
+ * 由于JPush不直接支持KMP iOS，我们使用APNs作为替代方案
+ */
+actual class JPushService actual constructor(
+    private val config: JPushConfig
+) : JPushServiceBase(config) {
+    
+    override suspend fun initializePlatform() {
+        AppLogger.d("JPushService", "Initializing JPush on iOS (using APNs)")
+        
+        // 由于JPush不直接支持KMP iOS，我们使用APNs作为替代方案
+        // 实际实现中需要集成JPush iOS SDK
+        // 或者使用APNs作为推送服务
+        
+        // 模拟初始化过程
+        // 实际实现中需要调用JPush iOS SDK的初始化方法
+        // [JPUSHService setupWithOption:launchOptions appKey:config.appKey channel:config.channel apsForProduction:!config.debugMode]
+    }
+    
+    override suspend fun registerTokenPlatform(): String? {
+        AppLogger.d("JPushService", "Registering token on iOS")
+        
+        // 获取APNs设备Token
+        // 实际实现中需要调用iOS推送注册API
+        // 或者通过JPush iOS SDK获取注册ID
+        
+        return "ios_jpush_token_${System.currentTimeMillis()}"
+    }
+    
+    override suspend fun sendNotificationPlatform(
+        title: String,
+        content: String,
+        data: Map<String, String>
+    ) {
+        AppLogger.d("JPushService", "Sending notification on iOS: $title")
+        
+        // 发送推送通知
+        // 实际实现中需要调用JPush iOS SDK发送通知
+        // 或者通过APNs发送通知
+    }
+    
+    override suspend fun setUserTagsPlatform(tags: Map<String, String>) {
+        AppLogger.d("JPushService", "Setting user tags on iOS: $tags")
+        
+        // 设置用户标签
+        // 实际实现中需要调用JPush iOS SDK设置标签
+        // [JPUSHService setTags:tags completionHandler:^(NSInteger iResCode, NSSet *iTags, NSInteger seq) { ... }]
+    }
+    
+    override suspend fun clearUserTagsPlatform() {
+        AppLogger.d("JPushService", "Clearing user tags on iOS")
+        
+        // 清除用户标签
+        // 实际实现中需要调用JPush iOS SDK清除标签
+        // [JPUSHService cleanTags:^(NSInteger iResCode, NSSet *iTags, NSInteger seq) { ... }]
+    }
+    
+    override suspend fun checkPermissionPlatform(): NotificationPermission {
+        AppLogger.d("JPushService", "Checking permission on iOS")
+        
+        // 检查通知权限
+        // 实际实现中需要调用iOS权限检查API
+        val center = UNUserNotificationCenter.currentNotificationCenter()
+        val settings = center.notificationSettings()
+        
+        return when (settings.authorizationStatus) {
+            UNAuthorizationStatusAuthorized -> NotificationPermission.GRANTED
+            UNAuthorizationStatusDenied -> NotificationPermission.DENIED
+            UNAuthorizationStatusNotDetermined -> NotificationPermission.NOT_DETERMINED
+            else -> NotificationPermission.NOT_DETERMINED
+        }
+    }
+    
+    override suspend fun requestPermissionPlatform(): Boolean {
+        AppLogger.d("JPushService", "Requesting permission on iOS")
+        
+        // 请求通知权限
+        // 实际实现中需要调用iOS权限请求API
+        // UNUserNotificationCenter.currentNotificationCenter().requestAuthorization(...)
+        
+        return true
+    }
+}

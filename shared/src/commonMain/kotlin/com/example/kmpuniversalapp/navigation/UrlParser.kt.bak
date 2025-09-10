@@ -1,0 +1,333 @@
+package com.example.kmpuniversalapp.navigation
+
+import com.example.kmpuniversalapp.libs.utils.log.AppLogger
+import kotlinx.serialization.Serializable
+
+/**
+ * URL参数解析器
+ * 支持GetX风格的URL参数解析
+ * 格式: /path?param1=value1&param2=value2
+ */
+object UrlParser {
+    
+    /**
+     * 解析URL参数
+     * @param url 完整URL
+     * @return 解析结果
+     */
+    fun parseUrl(url: String): UrlParseResult {
+        return try {
+            val (path, queryString) = url.split("?", limit = 2)
+            val params = parseQueryString(queryString)
+            
+            UrlParseResult(
+                path = path,
+                params = params,
+                originalUrl = url
+            )
+        } catch (e: Exception) {
+            AppLogger.e("UrlParser", "Failed to parse URL: $url", e)
+            UrlParseResult(
+                path = url,
+                params = emptyMap(),
+                originalUrl = url,
+                error = e.message
+            )
+        }
+    }
+    
+    /**
+     * 解析查询字符串
+     * @param queryString 查询字符串
+     * @return 参数映射
+     */
+    fun parseQueryString(queryString: String?): Map<String, String> {
+        if (queryString.isNullOrBlank()) return emptyMap()
+        
+        return queryString.split("&").associate { param ->
+            val (key, value) = param.split("=", limit = 2)
+            key to (value ?: "")
+        }
+    }
+    
+    /**
+     * 构建URL
+     * @param path 路径
+     * @param params 参数
+     * @return 完整URL
+     */
+    fun buildUrl(path: String, params: Map<String, Any> = emptyMap()): String {
+        if (params.isEmpty()) return path
+        
+        val queryString = params.entries.joinToString("&") { (key, value) ->
+            "$key=$value"
+        }
+        
+        return "$path?$queryString"
+    }
+    
+    /**
+     * 构建URL（支持类型安全）
+     * @param path 路径
+     * @param params 参数
+     * @return 完整URL
+     */
+    fun buildUrl(path: String, vararg params: Pair<String, Any>): String {
+        return buildUrl(path, params.toMap())
+    }
+}
+
+/**
+ * URL解析结果
+ */
+@Serializable
+data class UrlParseResult(
+    val path: String,
+    val params: Map<String, String>,
+    val originalUrl: String,
+    val error: String? = null
+) {
+    /**
+     * 获取字符串参数
+     */
+    fun getString(key: String, defaultValue: String = ""): String {
+        return params[key] ?: defaultValue
+    }
+    
+    /**
+     * 获取整数参数
+     */
+    fun getInt(key: String, defaultValue: Int = 0): Int {
+        return params[key]?.toIntOrNull() ?: defaultValue
+    }
+    
+    /**
+     * 获取长整数参数
+     */
+    fun getLong(key: String, defaultValue: Long = 0L): Long {
+        return params[key]?.toLongOrNull() ?: defaultValue
+    }
+    
+    /**
+     * 获取浮点数参数
+     */
+    fun getFloat(key: String, defaultValue: Float = 0f): Float {
+        return params[key]?.toFloatOrNull() ?: defaultValue
+    }
+    
+    /**
+     * 获取双精度浮点数参数
+     */
+    fun getDouble(key: String, defaultValue: Double = 0.0): Double {
+        return params[key]?.toDoubleOrNull() ?: defaultValue
+    }
+    
+    /**
+     * 获取布尔参数
+     */
+    fun getBoolean(key: String, defaultValue: Boolean = false): Boolean {
+        return params[key]?.toBooleanStrictOrNull() ?: defaultValue
+    }
+    
+    /**
+     * 获取可空字符串参数
+     */
+    fun getStringOrNull(key: String): String? {
+        return params[key]
+    }
+    
+    /**
+     * 获取可空整数参数
+     */
+    fun getIntOrNull(key: String): Int? {
+        return params[key]?.toIntOrNull()
+    }
+    
+    /**
+     * 获取可空长整数参数
+     */
+    fun getLongOrNull(key: String): Long? {
+        return params[key]?.toLongOrNull()
+    }
+    
+    /**
+     * 获取可空浮点数参数
+     */
+    fun getFloatOrNull(key: String): Float? {
+        return params[key]?.toFloatOrNull()
+    }
+    
+    /**
+     * 获取可空双精度浮点数参数
+     */
+    fun getDoubleOrNull(key: String): Double? {
+        return params[key]?.toDoubleOrNull()
+    }
+    
+    /**
+     * 获取可空布尔参数
+     */
+    fun getBooleanOrNull(key: String): Boolean? {
+        return params[key]?.toBooleanStrictOrNull()
+    }
+    
+    /**
+     * 检查是否包含指定参数
+     */
+    fun contains(key: String): Boolean {
+        return params.containsKey(key)
+    }
+    
+    /**
+     * 检查是否解析成功
+     */
+    fun isSuccess(): Boolean {
+        return error == null
+    }
+}
+
+/**
+ * URL构建器
+ * 提供链式API构建URL
+ */
+class UrlBuilder(private val path: String) {
+    private val params = mutableMapOf<String, Any>()
+    
+    /**
+     * 添加字符串参数
+     */
+    fun addString(key: String, value: String): UrlBuilder {
+        params[key] = value
+        return this
+    }
+    
+    /**
+     * 添加整数参数
+     */
+    fun addInt(key: String, value: Int): UrlBuilder {
+        params[key] = value
+        return this
+    }
+    
+    /**
+     * 添加长整数参数
+     */
+    fun addLong(key: String, value: Long): UrlBuilder {
+        params[key] = value
+        return this
+    }
+    
+    /**
+     * 添加浮点数参数
+     */
+    fun addFloat(key: String, value: Float): UrlBuilder {
+        params[key] = value
+        return this
+    }
+    
+    /**
+     * 添加双精度浮点数参数
+     */
+    fun addDouble(key: String, value: Double): UrlBuilder {
+        params[key] = value
+        return this
+    }
+    
+    /**
+     * 添加布尔参数
+     */
+    fun addBoolean(key: String, value: Boolean): UrlBuilder {
+        params[key] = value
+        return this
+    }
+    
+    /**
+     * 添加可空参数
+     */
+    fun addNullable(key: String, value: Any?): UrlBuilder {
+        if (value != null) {
+            params[key] = value
+        }
+        return this
+    }
+    
+    /**
+     * 添加多个参数
+     */
+    fun addAll(newParams: Map<String, Any>): UrlBuilder {
+        params.putAll(newParams)
+        return this
+    }
+    
+    /**
+     * 构建URL
+     */
+    fun build(): String {
+        return UrlParser.buildUrl(path, params)
+    }
+}
+
+/**
+ * URL构建器扩展函数
+ */
+fun String.toUrlBuilder(): UrlBuilder {
+    return UrlBuilder(this)
+}
+
+/**
+ * 常用URL构建示例
+ */
+object UrlExamples {
+    
+    /**
+     * 搜索详情页URL
+     */
+    fun searchDetail(keyword: String, page: Int = 1, category: String? = null): String {
+        return "/search-detail".toUrlBuilder()
+            .addString("keyword", keyword)
+            .addInt("page", page)
+            .addNullable("category", category)
+            .build()
+    }
+    
+    /**
+     * 消息详情页URL
+     */
+    fun messageDetail(messageId: String, conversationId: String? = null): String {
+        return "/message-detail".toUrlBuilder()
+            .addString("messageId", messageId)
+            .addNullable("conversationId", conversationId)
+            .build()
+    }
+    
+    /**
+     * 用户详情页URL
+     */
+    fun profileDetail(userId: String, tab: String? = null): String {
+        return "/profile-detail".toUrlBuilder()
+            .addString("userId", userId)
+            .addNullable("tab", tab)
+            .build()
+    }
+    
+    /**
+     * Banner详情页URL
+     */
+    fun bannerDetail(bannerId: String, title: String, linkUrl: String? = null): String {
+        return "/banner-detail".toUrlBuilder()
+            .addString("bannerId", bannerId)
+            .addString("title", title)
+            .addNullable("linkUrl", linkUrl)
+            .build()
+    }
+    
+    /**
+     * 设置详情页URL
+     */
+    fun settingsDetail(section: String, item: String? = null): String {
+        return "/settings-detail".toUrlBuilder()
+            .addString("section", section)
+            .addNullable("item", item)
+            .build()
+    }
+}

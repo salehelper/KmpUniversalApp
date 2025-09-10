@@ -1,0 +1,127 @@
+package com.example.kmpuniversalapp.libs.notification
+
+import com.example.kmpuniversalapp.libs.utils.log.AppLogger
+
+/**
+ * Firebase Cloud Messaging服务实现
+ * 使用expect/actual模式实现平台特定功能
+ */
+expect class FCMService : NotificationService
+
+/**
+ * FCM配置
+ */
+data class FCMConfig(
+    val projectId: String,
+    val apiKey: String,
+    val debugMode: Boolean = false
+)
+
+/**
+ * FCM服务实现 - 通用部分
+ */
+abstract class FCMServiceBase(
+    private val config: FCMConfig
+) : NotificationService {
+    
+    protected var isInitialized = false
+    protected var deviceToken: String? = null
+    
+    override suspend fun initialize() {
+        if (isInitialized) return
+        
+        AppLogger.d("FCMService", "Initializing FCM with projectId: ${config.projectId}")
+        
+        try {
+            initializePlatform()
+            isInitialized = true
+            AppLogger.i("FCMService", "FCM initialized successfully")
+        } catch (e: Exception) {
+            AppLogger.e("FCMService", "Failed to initialize FCM", e)
+            throw e
+        }
+    }
+    
+    override suspend fun registerToken(): String? {
+        if (!isInitialized) {
+            AppLogger.w("FCMService", "FCM not initialized, cannot register token")
+            return null
+        }
+        
+        try {
+            deviceToken = registerTokenPlatform()
+            AppLogger.i("FCMService", "Device token registered: $deviceToken")
+            return deviceToken
+        } catch (e: Exception) {
+            AppLogger.e("FCMService", "Failed to register token", e)
+            return null
+        }
+    }
+    
+    override suspend fun sendNotification(
+        title: String,
+        content: String,
+        data: Map<String, String>
+    ) {
+        if (!isInitialized) {
+            AppLogger.w("FCMService", "FCM not initialized, cannot send notification")
+            return
+        }
+        
+        try {
+            sendNotificationPlatform(title, content, data)
+            AppLogger.i("FCMService", "Notification sent: $title")
+        } catch (e: Exception) {
+            AppLogger.e("FCMService", "Failed to send notification", e)
+        }
+    }
+    
+    override suspend fun setUserTags(tags: Map<String, String>) {
+        if (!isInitialized) {
+            AppLogger.w("FCMService", "FCM not initialized, cannot set tags")
+            return
+        }
+        
+        try {
+            setUserTagsPlatform(tags)
+            AppLogger.i("FCMService", "User tags set: $tags")
+        } catch (e: Exception) {
+            AppLogger.e("FCMService", "Failed to set user tags", e)
+        }
+    }
+    
+    override suspend fun clearUserTags() {
+        if (!isInitialized) {
+            AppLogger.w("FCMService", "FCM not initialized, cannot clear tags")
+            return
+        }
+        
+        try {
+            clearUserTagsPlatform()
+            AppLogger.i("FCMService", "User tags cleared")
+        } catch (e: Exception) {
+            AppLogger.e("FCMService", "Failed to clear user tags", e)
+        }
+    }
+    
+    override suspend fun checkPermission(): NotificationPermission {
+        return checkPermissionPlatform()
+    }
+    
+    override suspend fun requestPermission(): Boolean {
+        return requestPermissionPlatform()
+    }
+    
+    // 平台特定实现方法
+    protected abstract suspend fun initializePlatform()
+    protected abstract suspend fun registerTokenPlatform(): String?
+    protected abstract suspend fun sendNotificationPlatform(
+        title: String,
+        content: String,
+        data: Map<String, String>
+    )
+    protected abstract suspend fun setUserTagsPlatform(tags: Map<String, String>)
+    protected abstract suspend fun clearUserTagsPlatform()
+    protected abstract suspend fun checkPermissionPlatform(): NotificationPermission
+    protected abstract suspend fun requestPermissionPlatform(): Boolean
+}

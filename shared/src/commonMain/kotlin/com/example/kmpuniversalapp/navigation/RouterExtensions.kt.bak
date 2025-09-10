@@ -1,0 +1,319 @@
+package com.example.kmpuniversalapp.navigation
+
+import com.example.kmpuniversalapp.libs.utils.log.AppLogger
+
+/**
+ * 路由扩展函数
+ * 提供便捷的路由操作方法
+ */
+
+/**
+ * 导航到搜索详情页
+ */
+suspend fun GetXStyleRouter.toSearchDetail(
+    keyword: String,
+    page: Int = 1,
+    category: String? = null
+) {
+    val url = UrlExamples.searchDetail(keyword, page, category)
+    AppLogger.d("RouterExtensions", "Navigating to search detail: $url")
+    to(url)
+}
+
+/**
+ * 导航到消息详情页
+ */
+suspend fun GetXStyleRouter.toMessageDetail(
+    messageId: String,
+    conversationId: String? = null
+) {
+    val url = UrlExamples.messageDetail(messageId, conversationId)
+    AppLogger.d("RouterExtensions", "Navigating to message detail: $url")
+    to(url)
+}
+
+/**
+ * 导航到用户详情页
+ */
+suspend fun GetXStyleRouter.toProfileDetail(
+    userId: String,
+    tab: String? = null
+) {
+    val url = UrlExamples.profileDetail(userId, tab)
+    AppLogger.d("RouterExtensions", "Navigating to profile detail: $url")
+    to(url)
+}
+
+/**
+ * 导航到Banner详情页
+ */
+suspend fun GetXStyleRouter.toBannerDetail(
+    bannerId: String,
+    title: String,
+    linkUrl: String? = null
+) {
+    val url = UrlExamples.bannerDetail(bannerId, title, linkUrl)
+    AppLogger.d("RouterExtensions", "Navigating to banner detail: $url")
+    to(url)
+}
+
+/**
+ * 导航到设置详情页
+ */
+suspend fun GetXStyleRouter.toSettingsDetail(
+    section: String,
+    item: String? = null
+) {
+    val url = UrlExamples.settingsDetail(section, item)
+    AppLogger.d("RouterExtensions", "Navigating to settings detail: $url")
+    to(url)
+}
+
+/**
+ * 导航到主页面
+ */
+suspend fun GetXStyleRouter.toMain() {
+    AppLogger.d("RouterExtensions", "Navigating to main")
+    to(AppRoutes.MAIN)
+}
+
+/**
+ * 导航到首页
+ */
+suspend fun GetXStyleRouter.toHome() {
+    AppLogger.d("RouterExtensions", "Navigating to home")
+    to(AppRoutes.HOME)
+}
+
+/**
+ * 导航到搜索页
+ */
+suspend fun GetXStyleRouter.toSearch() {
+    AppLogger.d("RouterExtensions", "Navigating to search")
+    to(AppRoutes.SEARCH)
+}
+
+/**
+ * 导航到消息页
+ */
+suspend fun GetXStyleRouter.toMessage() {
+    AppLogger.d("RouterExtensions", "Navigating to message")
+    to(AppRoutes.MESSAGE)
+}
+
+/**
+ * 导航到个人中心
+ */
+suspend fun GetXStyleRouter.toProfile() {
+    AppLogger.d("RouterExtensions", "Navigating to profile")
+    to(AppRoutes.PROFILE)
+}
+
+/**
+ * 导航到登录页
+ */
+suspend fun GetXStyleRouter.toLogin() {
+    AppLogger.d("RouterExtensions", "Navigating to login")
+    to(AppRoutes.LOGIN)
+}
+
+/**
+ * 导航到注册页
+ */
+suspend fun GetXStyleRouter.toRegister(inviteCode: String? = null) {
+    val url = if (inviteCode != null) {
+        "/register".toUrlBuilder().addString("inviteCode", inviteCode).build()
+    } else {
+        AppRoutes.REGISTER
+    }
+    AppLogger.d("RouterExtensions", "Navigating to register: $url")
+    to(url)
+}
+
+/**
+ * 替换到登录页（清除历史）
+ */
+suspend fun GetXStyleRouter.offToLogin() {
+    AppLogger.d("RouterExtensions", "Replacing to login")
+    offAll(AppRoutes.LOGIN)
+}
+
+/**
+ * 替换到主页面（清除历史）
+ */
+suspend fun GetXStyleRouter.offToMain() {
+    AppLogger.d("RouterExtensions", "Replacing to main")
+    offAll(AppRoutes.MAIN)
+}
+
+/**
+ * 返回到首页
+ */
+fun GetXStyleRouter.backToHome() {
+    AppLogger.d("RouterExtensions", "Back to home")
+    backTo(AppRoutes.HOME)
+}
+
+/**
+ * 返回到主页面
+ */
+fun GetXStyleRouter.backToMain() {
+    AppLogger.d("RouterExtensions", "Back to main")
+    backTo(AppRoutes.MAIN)
+}
+
+/**
+ * 返回到搜索页
+ */
+fun GetXStyleRouter.backToSearch() {
+    AppLogger.d("RouterExtensions", "Back to search")
+    backTo(AppRoutes.SEARCH)
+}
+
+/**
+ * 返回到消息页
+ */
+fun GetXStyleRouter.backToMessage() {
+    AppLogger.d("RouterExtensions", "Back to message")
+    backTo(AppRoutes.MESSAGE)
+}
+
+/**
+ * 返回到个人中心
+ */
+fun GetXStyleRouter.backToProfile() {
+    AppLogger.d("RouterExtensions", "Back to profile")
+    backTo(AppRoutes.PROFILE)
+}
+
+/**
+ * 获取当前页面参数（类型安全）
+ */
+fun GetXStyleRouter.getCurrentParams(): UrlParseResult {
+    val currentUrl = currentRoute() ?: ""
+    return UrlParser.parseUrl(currentUrl)
+}
+
+/**
+ * 检查当前是否在指定页面
+ */
+fun GetXStyleRouter.isCurrentPage(route: String): Boolean {
+    return currentRoute() == route
+}
+
+/**
+ * 检查当前是否在主页面的某个标签页
+ */
+fun GetXStyleRouter.isCurrentTab(tab: String): Boolean {
+    val current = currentRoute()
+    return when (tab) {
+        "home" -> current == AppRoutes.HOME
+        "search" -> current == AppRoutes.SEARCH
+        "message" -> current == AppRoutes.MESSAGE
+        "profile" -> current == AppRoutes.PROFILE
+        else -> false
+    }
+}
+
+/**
+ * 获取当前标签页索引
+ */
+fun GetXStyleRouter.getCurrentTabIndex(): Int {
+    val current = currentRoute()
+    return when (current) {
+        AppRoutes.HOME -> 0
+        AppRoutes.SEARCH -> 1
+        AppRoutes.MESSAGE -> 2
+        AppRoutes.PROFILE -> 3
+        else -> 0
+    }
+}
+
+/**
+ * 根据索引获取标签页路由
+ */
+fun GetXStyleRouter.getTabRoute(index: Int): String {
+    return when (index) {
+        0 -> AppRoutes.HOME
+        1 -> AppRoutes.SEARCH
+        2 -> AppRoutes.MESSAGE
+        3 -> AppRoutes.PROFILE
+        else -> AppRoutes.HOME
+    }
+}
+
+/**
+ * 导航到指定标签页
+ */
+suspend fun GetXStyleRouter.toTab(index: Int) {
+    val route = getTabRoute(index)
+    AppLogger.d("RouterExtensions", "Navigating to tab $index: $route")
+    to(route)
+}
+
+/**
+ * 路由状态检查
+ */
+object RouteState {
+    
+    /**
+     * 检查是否在认证流程中
+     */
+    fun isInAuthFlow(router: GetXStyleRouter): Boolean {
+        val current = router.currentRoute()
+        return current == AppRoutes.LOGIN || current == AppRoutes.REGISTER
+    }
+    
+    /**
+     * 检查是否在主页面
+     */
+    fun isInMainFlow(router: GetXStyleRouter): Boolean {
+        val current = router.currentRoute()
+        return current == AppRoutes.MAIN || 
+               current == AppRoutes.HOME || 
+               current == AppRoutes.SEARCH || 
+               current == AppRoutes.MESSAGE || 
+               current == AppRoutes.PROFILE
+    }
+    
+    /**
+     * 检查是否在详情页
+     */
+    fun isInDetailPage(router: GetXStyleRouter): Boolean {
+        val current = router.currentRoute()
+        return current?.contains("-detail") == true
+    }
+    
+    /**
+     * 检查是否可以返回
+     */
+    fun canGoBack(router: GetXStyleRouter): Boolean {
+        return router.canPop()
+    }
+}
+
+/**
+ * 路由调试工具
+ */
+object RouteDebugger {
+    
+    /**
+     * 打印当前路由状态
+     */
+    fun printCurrentState(router: GetXStyleRouter) {
+        AppLogger.d("RouteDebugger", "=== Current Route State ===")
+        AppLogger.d("RouteDebugger", "Current Route: ${router.currentRoute()}")
+        AppLogger.d("RouteDebugger", "Arguments: ${router.arguments()}")
+        AppLogger.d("RouteDebugger", "Can Go Back: ${router.canPop()}")
+        AppLogger.d("RouteDebugger", "===========================")
+    }
+    
+    /**
+     * 打印路由历史
+     */
+    fun printRouteHistory(router: GetXStyleRouter) {
+        AppLogger.d("RouteDebugger", "=== Route History ===")
+        // 这里可以添加历史记录打印逻辑
+        AppLogger.d("RouteDebugger", "===================")
+    }
+}
