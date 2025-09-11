@@ -3,6 +3,8 @@ package com.example.kmpuniversalapp.presentation.ui.tabs
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -51,6 +53,7 @@ fun HomeTabContent(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
+            .verticalScroll(rememberScrollState())
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -86,10 +89,10 @@ fun HomeTabContent(
             }
         }
         
-        // 图片轮播
+        // 图片轮播 - 限制最多显示5个
         if (carousels.isNotEmpty()) {
             ImageCarouselComponent(
-                carousels = carousels,
+                carousels = carousels.take(5),
                 onCarouselClick = onCarouselClick
             )
         } else {
@@ -103,10 +106,10 @@ fun HomeTabContent(
             }
         }
         
-        // 视频播放
+        // 视频播放 - 限制最多显示5个
         if (videos.isNotEmpty()) {
             VideoPlayerComponent(
-                videos = videos,
+                videos = videos.take(5),
                 onVideoClick = onVideoClick,
                 onVideoLike = onVideoLike
             )
@@ -121,18 +124,18 @@ fun HomeTabContent(
             }
         }
         
-        // 待办事项
+        // 待办事项 - 限制最多显示5条
         TodoListComponent(
-            todos = todos,
+            todos = todos.take(5),
             onTodoClick = onTodoClick,
             onTodoToggle = onTodoToggle,
             onAddTodo = onAddTodo
         )
         
-        // 资讯列表
+        // 资讯列表 - 限制最多显示5条
         if (news.isNotEmpty()) {
             NewsListComponent(
-                news = news,
+                news = news.take(5),
                 onNewsClick = onNewsClick,
                 onNewsLike = onNewsLike
             )

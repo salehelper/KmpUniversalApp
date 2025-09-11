@@ -3,9 +3,6 @@ package com.example.kmpuniversalapp.presentation.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -69,10 +66,10 @@ fun TodoListComponent(
         if (todos.isEmpty()) {
             EmptyTodoState()
         } else {
-            LazyColumn(
+            Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(todos) { todo ->
+                todos.forEach { todo ->
                     TodoItem(
                         todo = todo,
                         onClick = { onTodoClick(todo) },
@@ -203,10 +200,10 @@ private fun TodoItem(
                 // 标签列表
                 if (todo.tags.isNotEmpty()) {
                     Spacer(modifier = Modifier.height(8.dp))
-                    LazyRow(
+                    Row(
                         horizontalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
-                        items(todo.tags) { tag ->
+                        todo.tags.forEach { tag ->
                             Surface(
                                 color = MaterialTheme.colorScheme.surfaceVariant,
                                 shape = RoundedCornerShape(8.dp)

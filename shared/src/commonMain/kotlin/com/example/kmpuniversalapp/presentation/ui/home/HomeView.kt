@@ -65,7 +65,7 @@ import com.example.kmpuniversalapp.presentation.ui.components.TodoListComponent
 import com.example.kmpuniversalapp.presentation.ui.components.NewsListComponent
 import com.example.kmpuniversalapp.presentation.ui.tabs.HomeTabContent
 @Composable
-fun HomeView() {
+fun HomeView(modifier: Modifier = Modifier) {
     // 暂时使用模拟数据，避免依赖注入问题
     val banners = remember { 
         listOf(
@@ -265,6 +265,7 @@ fun HomeView() {
     // 直接显示首页内容，不包含底部导航栏
     // 底部导航栏由MainTabView.kt处理
     HomeTabContent(
+        modifier = modifier,
         todos = todos,
         news = news,
         videos = videos,

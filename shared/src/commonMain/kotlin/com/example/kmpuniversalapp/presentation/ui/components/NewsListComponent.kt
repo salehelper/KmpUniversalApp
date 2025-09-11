@@ -3,9 +3,6 @@ package com.example.kmpuniversalapp.presentation.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Comment
@@ -47,10 +44,10 @@ fun NewsListComponent(
         if (news.isEmpty()) {
             EmptyNewsState()
         } else {
-            LazyColumn(
+            Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(news) { newsItem ->
+                news.forEach { newsItem ->
                     NewsItem(
                         news = newsItem,
                         onClick = { onNewsClick(newsItem) },
@@ -248,10 +245,10 @@ private fun NewsItem(
             // 标签
             if (news.tags.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(8.dp))
-                LazyRow(
+                Row(
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    items(news.tags.take(5)) { tag ->
+                    news.tags.take(5).forEach { tag ->
                         Surface(
                             color = MaterialTheme.colorScheme.surfaceVariant,
                             shape = RoundedCornerShape(8.dp)
