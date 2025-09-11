@@ -1,6 +1,6 @@
 # KMP Universal App 模块结构
 
-## 📁 项目结构
+## 项目结构
 
 ```
 shared/src/commonMain/kotlin/com/example/kmpuniversalapp/
@@ -79,7 +79,7 @@ shared/src/commonMain/kotlin/com/example/kmpuniversalapp/
             └── NotificationManager.kt  # 通知管理器
 ```
 
-## 🏗️ 模块职责
+## 模块职责
 
 ### 业务模块 (Business Modules)
 
@@ -159,7 +159,7 @@ shared/src/commonMain/kotlin/com/example/kmpuniversalapp/
   - `log`: 日志管理
   - `notification`: 通知管理
 
-## 🔄 模块依赖关系
+## 模块依赖关系
 
 ```
 main
@@ -211,7 +211,7 @@ libs/utils
 └── core
 ```
 
-## 📋 模块开发规范
+## 模块开发规范
 
 ### 1. 命名规范
 - **模块名**: 小写字母，使用下划线分隔
@@ -239,7 +239,7 @@ libs/utils
 - 使用Logger记录错误信息
 - 使用NotificationManager显示用户提示
 
-## 🚀 使用示例
+## 使用示例
 
 ### 在ViewModel中使用其他模块
 ```kotlin

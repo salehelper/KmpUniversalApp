@@ -63,7 +63,7 @@
 | **Kotlinx Atomicfu** | 0.23.0 | Android, iOS, Desktop, Web | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | 原子操作 |
 | **Kotlinx Coroutines** | 1.8.0 | Android, iOS, Desktop, Web | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | 协程支持 |
 
-## 🔧 依赖注入
+## 依赖注入
 
 | 库名 | 版本 | 支持平台 | 成熟度 | 推荐度 | 描述 |
 |------|------|----------|--------|--------|------|
@@ -87,7 +87,7 @@
 | **Kotlinx Collections** | 0.3.7 | Android, iOS, Desktop, Web | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | 集合操作 |
 | **Kotlinx Atomicfu** | 0.23.0 | Android, iOS, Desktop, Web | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | 原子操作 |
 
-## 🧪 测试框架
+## 测试框架
 
 | 库名 | 版本 | 支持平台 | 成熟度 | 推荐度 | 描述 |
 |------|------|----------|--------|--------|------|
@@ -104,7 +104,7 @@
 | **Kotlinx Coroutines** | 1.8.0 | Android, iOS, Desktop, Web | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | 协程支持 |
 | **Kotlinx Collections** | 0.3.7 | Android, iOS, Desktop, Web | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | 集合操作 |
 
-## 🛠️ 工具库
+## 工具库
 
 | 库名 | 版本 | 支持平台 | 成熟度 | 推荐度 | 描述 |
 |------|------|----------|--------|--------|------|
@@ -136,7 +136,7 @@
 | **Kotlinx Collections** | 0.3.7 | Android, iOS, Desktop, Web | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | 集合操作 |
 | **Kotlinx Atomicfu** | 0.23.0 | Android, iOS, Desktop, Web | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | 原子操作 |
 
-## 🎯 推荐的技术栈组合
+## 推荐的技术栈组合
 
 ### 方案A: 企业级 (推荐)
 ```

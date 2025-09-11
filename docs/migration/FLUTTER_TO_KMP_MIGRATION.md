@@ -1,6 +1,6 @@
 # Flutter to KMP 迁移总结
 
-## 🎯 迁移概述
+## 迁移概述
 
 成功将Flutter Universal App的架构和功能迁移到Kotlin Multiplatform (KMP)实现，实现了跨平台UI和业务逻辑的统一。
 
@@ -18,7 +18,7 @@
 - **架构**: MVVM + 模块化
 - **平台支持**: Android, iOS, Desktop, Web (WASM)
 
-## 🏗️ 架构对比
+## 架构对比
 
 ### Flutter 架构
 ```
@@ -40,7 +40,7 @@ KmpUniversalApp/
 └── server/                  # 后端服务
 ```
 
-## 🔄 功能迁移对照表
+## 功能迁移对照表
 
 | 功能模块 | Flutter实现 | KMP实现 | 状态 |
 |---------|------------|---------|------|
@@ -81,7 +81,7 @@ KmpUniversalApp/
 - **KMP**: UserInfoCard + MenuItemCard
 - **特点**: 增强了用户数据展示
 
-## 🔧 技术栈对比
+## 技术栈对比
 
 ### Flutter 技术栈
 ```yaml
@@ -125,7 +125,7 @@ dependencies {
 2. **生态成熟度**: Compose Multiplatform生态相对较新
 3. **学习成本**: 需要学习Kotlin和Compose
 
-## 🚀 运行方式
+## 运行方式
 
 ### Flutter 运行
 ```bash
@@ -258,14 +258,14 @@ fun HomeView() {
 4. **跨平台支持**: 支持Android、iOS、Desktop、Web
 5. **性能提升**: 相比Flutter有更好的性能表现
 
-### 🔄 待优化
+### 待优化
 1. **平台特定功能**: 需要添加更多平台特定的实现
 2. **动画效果**: 可以添加更多动画和过渡效果
 3. **主题系统**: 完善深色模式和主题切换
 4. **国际化**: 添加多语言支持
 5. **测试覆盖**: 增加单元测试和UI测试
 
-## 📚 学习资源
+## 学习资源
 
 - [Kotlin Multiplatform官方文档](https://kotlinlang.org/docs/multiplatform.html)
 - [Compose Multiplatform文档](https://www.jetbrains.com/lp/compose-multiplatform/)

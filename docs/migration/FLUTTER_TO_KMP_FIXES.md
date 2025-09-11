@@ -1,6 +1,6 @@
 # Flutter to KMP 修正总结
 
-## 🔧 修正的问题
+## 修正的问题
 
 经过详细对比Flutter实现和KMP实现，发现并修正了以下关键问题：
 
@@ -125,7 +125,7 @@ val paginationInfo: StateFlow<String> = _paginationInfo.asStateFlow()
 | ViewModel | 完整业务逻辑 | 基础状态 | 完整逻辑 | ✅ |
 | UI细节 | 丰富交互 | 基础UI | 完整体验 | ✅ |
 
-## 🎯 修正后的特性
+## 修正后的特性
 
 ### 1. 完整的功能对等
 - ✅ 日志面板功能
@@ -154,7 +154,7 @@ val paginationInfo: StateFlow<String> = _paginationInfo.asStateFlow()
 - ✅ 模块化架构设计
 - ✅ 跨平台兼容性
 
-## 🚀 修正成果
+## 修正成果
 
 经过这次修正，KMP版本已经达到了与Flutter版本的功能对等和体验一致：
 

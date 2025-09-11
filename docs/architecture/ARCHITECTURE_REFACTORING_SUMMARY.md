@@ -1,6 +1,6 @@
 # 架构重构总结 - 统一到Shared模块
 
-## 🎯 重构目标
+## 重构目标
 
 解决composeApp和shared模块之间的重复实现问题，统一架构到shared模块中。
 
@@ -71,7 +71,7 @@ composeApp/
 └── App.kt                       # 仅包含应用入口
 ```
 
-## 🔧 重构步骤
+## 重构步骤
 
 ### 1. 移动UI文件
 ```bash
@@ -139,7 +139,7 @@ rm -rf composeApp/src/commonMain/kotlin/com/example/kmpuniversalapp/ui
 | **架构清晰度** | 混乱 | 清晰 | ✅ 分层明确 |
 | **测试友好** | 差 | 好 | ✅ 依赖注入 |
 
-## 🎯 架构优势
+## 架构优势
 
 ### 1. 单一职责原则
 - **shared模块**: 包含所有业务逻辑、数据模型、UI组件
@@ -160,7 +160,7 @@ rm -rf composeApp/src/commonMain/kotlin/com/example/kmpuniversalapp/ui
 - 减少平台特定代码
 - 提高开发效率
 
-## 🚀 使用方式
+## 使用方式
 
 ### 1. 添加新功能
 ```kotlin

@@ -1,17 +1,17 @@
 # Compose Hot Reload 热加载指南
 
-## 🚀 功能概述
+## 功能概述
 
-Compose Hot Reload 是 JetBrains 为 Compose Multiplatform 开发的热加载功能，允许开发者在修改代码后无需重新编译整个应用即可看到更改效果，大大提升开发效率。
+Compose Hot Reload 是 JetBrains 为 Compose Multiplatform 开发的热加载功能，，。
 
-## 📋 前置条件
+## 前置条件
 
 - Android Studio 或 IntelliJ IDEA
 - Kotlin Multiplatform 项目
 - Compose Multiplatform 1.7.0+
 - compose-hot-reload 插件
 
-## ⚙️ 配置说明
+## 配置说明
 
 ### 1. 插件配置
 
@@ -31,7 +31,7 @@ plugins {
 composeHotReload = "1.0.0-beta06"
 ```
 
-## 🎯 使用方法
+## 使用方法
 
 ### 1. 启动热加载模式
 
@@ -70,7 +70,7 @@ composeHotReload = "1.0.0-beta06"
 - 修改构建配置
 - 平台特定代码修改
 
-## 🔧 配置选项
+## 配置选项
 
 ### 1. 热加载端口配置
 
@@ -103,7 +103,7 @@ System.setProperty("compose.hot.reload.log.level", "DEBUG")
 - 需要 Xcode 12.0 或更高版本
 - 建议使用 Xcode 预览功能
 
-## 🐛 故障排除
+## 故障排除
 
 ### 常见问题
 
@@ -168,7 +168,7 @@ System.setProperty("compose.hot.reload.log.level", "DEBUG")
    - 利用 Compose 的预览功能
    - 定期检查内存使用情况
 
-## 📚 相关资源
+## 相关资源
 
 - [Compose Multiplatform 官方文档](https://www.jetbrains.com/lp/compose-multiplatform/)
 - [Compose Hot Reload 插件文档](https://github.com/JetBrains/compose-multiplatform)

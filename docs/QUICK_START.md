@@ -1,16 +1,16 @@
-# KMP Universal App 快速开始指南
+# KMP Universal App 快速开始
 
-## 🎯 项目概述
+## 项目介绍
 
-这是一个基于 Kotlin Multiplatform 的通用应用脚手架，支持以下平台：
-- 📱 Android
-- 🍎 iOS  
-- 🖥️ Desktop (Windows, macOS, Linux)
-- 🌐 Web (WASM)
+基于 Kotlin Multiplatform 开发的应用，支持多平台部署：
+- Android
+- iOS  
+- Desktop (Windows, macOS, Linux)
+- Web (WASM)
 
-## 🚀 快速运行
+## 运行项目
 
-### 方法一：使用运行脚本（推荐）
+### 使用运行脚本
 ```bash
 # 运行所有平台
 ./run.sh all
@@ -22,7 +22,7 @@
 ./run.sh ios        # iOS (需要Xcode)
 ```
 
-### 方法二：使用Gradle命令
+### 使用Gradle命令
 ```bash
 # 同步项目
 ./gradlew build
@@ -33,7 +33,7 @@
 ./gradlew :composeApp:jsBrowserDevelopmentRun  # Web
 ```
 
-## 📁 项目结构
+## 项目结构
 
 ```
 KmpUniversalApp/
@@ -58,7 +58,7 @@ KmpUniversalApp/
 └── gradle/                  # Gradle配置
 ```
 
-## 🛠️ 开发指南
+## 开发指南
 
 ### 添加新功能
 
@@ -137,7 +137,7 @@ actual class PlatformSpecificClass {
 }
 ```
 
-## 🔧 配置说明
+## 配置说明
 
 ### 依赖管理
 - 使用 `gradle/libs.versions.toml` 管理版本
@@ -149,7 +149,7 @@ actual class PlatformSpecificClass {
 - Desktop: 支持 Windows, macOS, Linux
 - Web: 使用 WASM 技术
 
-## 🐛 常见问题
+## 常见问题
 
 ### 1. 构建失败
 ```bash
@@ -170,20 +170,20 @@ cd ..
 - 确保端口8080未被占用
 - 检查浏览器控制台错误信息
 
-## 📚 学习资源
+## 学习资源
 
 - [Kotlin Multiplatform官方文档](https://kotlinlang.org/docs/multiplatform.html)
 - [Compose Multiplatform文档](https://www.jetbrains.com/lp/compose-multiplatform/)
 - [Ktor文档](https://ktor.io/)
 - [Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization)
 
-## 🤝 贡献
+## 贡献
 
 1. Fork 项目
 2. 创建功能分支
 3. 提交更改
 4. 创建 Pull Request
 
-## 📄 许可证
+## 许可证
 
 MIT License
