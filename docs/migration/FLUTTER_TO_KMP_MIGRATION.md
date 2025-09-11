@@ -37,7 +37,6 @@ KmpUniversalApp/
 ├── composeApp/              # 主应用 (UI层)
 ├── shared/                  # 共享模块 (业务逻辑)
 ├── iosApp/                  # iOS项目
-└── server/                  # 后端服务
 ```
 
 ## 功能迁移对照表

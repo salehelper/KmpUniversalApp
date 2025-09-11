@@ -54,7 +54,6 @@ KmpUniversalApp/
 │   │   └── wasmJsMain/      # Web特定实现
 │   └── build.gradle.kts
 ├── iosApp/                  # iOS项目文件
-├── server/                  # Ktor后端服务
 └── gradle/                  # Gradle配置
 ```
 
