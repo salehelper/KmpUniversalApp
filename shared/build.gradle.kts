@@ -8,7 +8,6 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     id("kotlin-parcelize")
-    // alias(libs.plugins.sqldelight) // 暂时注释，避免构建错误
 }
 
 kotlin {
@@ -21,7 +20,19 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
     
-    jvm()
+    // 暂时禁用JVM平台，避免expect/actual实现问题
+    // jvm()
+    
+    // 添加编译器选项来抑制expect/actual警告
+    targets.all {
+        compilations.all {
+            compileTaskProvider.configure {
+                compilerOptions {
+                    freeCompilerArgs.add("-Xexpect-actual-classes")
+                }
+            }
+        }
+    }
     
     // 暂时移除WASM目标，避免依赖兼容性问题
     // @OptIn(ExperimentalWasmDsl::class)
@@ -46,12 +57,13 @@ kotlin {
             // 日期时间
             implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.1")
             
-            // 导航 - PreCompose (专为KMP设计的导航库，参考Translation-KMP)
+            // 导航 - PreCompose (专为KMP设计的导航库)
             implementation("moe.tlaster:precompose:1.6.0")
             
             // 状态管理 - Essenty (ViewModel 需要)
             implementation("com.arkivanov.essenty:lifecycle:2.1.0")
             implementation("com.arkivanov.essenty:back-handler:2.1.0")
+            implementation("com.arkivanov.essenty:state-keeper:2.1.0")
             
             // 图片加载 - Ktor Image Loader
             implementation("io.ktor:ktor-client-resources:${libs.versions.ktor.get()}")
@@ -66,9 +78,6 @@ kotlin {
             implementation("io.insert-koin:koin-core:3.5.0")
             implementation("io.insert-koin:koin-compose:1.1.0")
             
-            // 数据库 - SQLDelight (类型安全的SQL) - 暂时注释
-            // implementation("app.cash.sqldelight:runtime:2.0.4")
-            // implementation("app.cash.sqldelight:coroutines-extensions:2.0.4")
             
             // Compose Multiplatform
             implementation(compose.runtime)
@@ -92,12 +101,10 @@ kotlin {
         androidMain.dependencies {
             implementation("io.ktor:ktor-client-android:${libs.versions.ktor.get()}")
             implementation("com.arkivanov.decompose:extensions-compose-jetbrains:2.2.0")
-            // implementation("app.cash.sqldelight:android-driver:2.0.4")
         }
         
         iosMain.dependencies {
             implementation("io.ktor:ktor-client-darwin:${libs.versions.ktor.get()}")
-            // implementation("app.cash.sqldelight:native-driver:2.0.4")
             
             // iOS 特定的 Compose 依赖
             implementation(compose.ui)
@@ -109,7 +116,6 @@ kotlin {
         jvmMain.dependencies {
             implementation("io.ktor:ktor-client-cio:${libs.versions.ktor.get()}")
             implementation("com.arkivanov.decompose:extensions-compose-jetbrains:2.2.0")
-            // implementation("app.cash.sqldelight:sqlite-driver:2.0.4")
         }
         
         jvmTest.dependencies {
@@ -126,12 +132,10 @@ kotlin {
             implementation("io.insert-koin:koin-test:3.5.0")
             
             // 数据库测试 - 暂时注释
-            // implementation("app.cash.sqldelight:sqlite-driver:2.0.4")
         }
         
         // wasmJsMain.dependencies {
         //     implementation("io.ktor:ktor-client-js:${libs.versions.ktor.get()}")
-        //     // implementation("app.cash.sqldelight:sqljs-driver:2.0.4")
         // }
     }
 }

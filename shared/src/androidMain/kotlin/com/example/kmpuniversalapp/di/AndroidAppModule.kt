@@ -1,4 +1,4 @@
-package com.example.kmpuniversalapp.di
+package com.example.kmpuniversalapp.core.di
 
 import org.koin.dsl.module
 

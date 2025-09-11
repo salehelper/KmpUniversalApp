@@ -54,8 +54,6 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(libs.androidx.lifecycle.viewmodelCompose)
-            implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(projects.shared)
             // PreCompose 导航库 - 使用稳定版本
             implementation("moe.tlaster:precompose:1.6.0")

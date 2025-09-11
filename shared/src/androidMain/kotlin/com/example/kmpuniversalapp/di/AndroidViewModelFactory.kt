@@ -1,15 +1,15 @@
-package com.example.kmpuniversalapp.di
+package com.example.kmpuniversalapp.core.di
 
 import com.arkivanov.essenty.lifecycle.Lifecycle
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
-import com.example.kmpuniversalapp.home.HomeViewModel
-import com.example.kmpuniversalapp.search.SearchViewModel
-import com.example.kmpuniversalapp.account.AccountViewModel
-import com.example.kmpuniversalapp.message.MessageViewModel
-import com.example.kmpuniversalapp.profile.ProfileViewModel
-import com.example.kmpuniversalapp.libs.utils.log.AppLogger
-import com.example.kmpuniversalapp.home.HomeApiService
-import com.example.kmpuniversalapp.search.SearchApiService
+import com.example.kmpuniversalapp.features.home.HomeViewModel
+import com.example.kmpuniversalapp.features.search.SearchViewModel
+import com.example.kmpuniversalapp.features.account.AccountViewModel
+import com.example.kmpuniversalapp.features.message.MessageViewModel
+import com.example.kmpuniversalapp.features.profile.ProfileViewModel
+import com.example.kmpuniversalapp.core.utils.log.AppLogger
+import com.example.kmpuniversalapp.features.home.HomeApiService
+import com.example.kmpuniversalapp.features.search.SearchApiService
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

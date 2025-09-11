@@ -1,6 +1,6 @@
 package com.example.kmpuniversalapp
 
-import com.example.kmpuniversalapp.di.androidAppModule
+import com.example.kmpuniversalapp.core.di.androidAppModule
 import org.koin.core.module.Module
 
 /**

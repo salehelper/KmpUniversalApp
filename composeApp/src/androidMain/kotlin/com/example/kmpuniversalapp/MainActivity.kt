@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.kmpuniversalapp.libs.utils.log.AppLogger
+import com.example.kmpuniversalapp.core.utils.log.AppLogger
 
 /**
  * 主Activity
