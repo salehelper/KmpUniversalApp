@@ -13,12 +13,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.kmpuniversalapp.presentation.navigation.LocalNavigator
+// 移除PreCompose依赖
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen() {
-    val navigator = LocalNavigator.current
+    // 简化实现，暂时不处理导航
     var userProfile by remember { mutableStateOf<UserProfile?>(null) }
     var menuItems by remember { mutableStateOf(getProfileMenuItems()) }
     
@@ -29,7 +29,7 @@ fun ProfileScreen() {
         TopAppBar(
             title = { Text("个人中心") },
             navigationIcon = {
-                IconButton(onClick = { navigator.popBackStack() }) {
+                IconButton(onClick = { /* 简化实现，暂时不处理返回 */ }) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "返回")
                 }
             }

@@ -2,7 +2,7 @@ package com.example.kmpuniversalapp.core.di
 
 import com.example.kmpuniversalapp.core.*
 import com.example.kmpuniversalapp.core.implementations.*
-import com.example.kmpuniversalapp.core.utils.storage.DataStoreManager
+// import com.example.kmpuniversalapp.core.utils.storage.DataStoreManager // 暂时注释
 import com.example.kmpuniversalapp.core.services.AppService
 // import com.example.kmpuniversalapp.core.examples.InterfaceUsageExample
 import org.koin.dsl.module
@@ -18,16 +18,9 @@ val coreInterfacesModule = module {
     single<ITimeProvider> { TimeProviderImpl() }
     single<IDeviceInfo> { DeviceInfoImpl() }
     
-    // 存储接口实现 - 优先使用DataStoreManager，降级到内存存储
+    // 存储接口实现 - 使用内存存储
     single<IStorage> { 
-        try {
-            // 尝试使用DataStoreManager
-            val dataStoreManager = get<DataStoreManager>()
-            StorageAdapter(dataStoreManager)
-        } catch (e: Exception) {
-            // 如果DataStoreManager不可用，使用内存存储
-            StorageImpl()
-        }
+        StorageImpl()
     }
     
     // 网络客户端实现

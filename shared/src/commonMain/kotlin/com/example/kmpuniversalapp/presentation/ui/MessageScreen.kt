@@ -10,12 +10,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.kmpuniversalapp.presentation.navigation.LocalNavigator
+// 移除PreCompose依赖
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MessageScreen() {
-    val navigator = LocalNavigator.current
+    // 简化实现，暂时不处理导航
     var conversations by remember { mutableStateOf<List<ConversationItem>>(emptyList()) }
     
     Column(
@@ -25,7 +25,7 @@ fun MessageScreen() {
         TopAppBar(
             title = { Text("消息") },
             navigationIcon = {
-                IconButton(onClick = { navigator.popBackStack() }) {
+                IconButton(onClick = { /* 简化实现，暂时不处理返回 */ }) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "返回")
                 }
             }
