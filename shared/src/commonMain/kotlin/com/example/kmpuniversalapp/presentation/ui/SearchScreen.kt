@@ -10,12 +10,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.kmpuniversalapp.presentation.navigation.LocalNavigator
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen() {
-    val navigator = LocalNavigator.current
     var searchQuery by remember { mutableStateOf("") }
     var searchResults by remember { mutableStateOf<List<String>>(emptyList()) }
     
@@ -26,7 +23,7 @@ fun SearchScreen() {
         TopAppBar(
             title = { Text("搜索") },
             navigationIcon = {
-                IconButton(onClick = { navigator.popBackStack() }) {
+                IconButton(onClick = { /* 简化实现，暂时不处理返回 */ }) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "返回")
                 }
             }

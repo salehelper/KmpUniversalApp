@@ -1,6 +1,7 @@
 package com.example.kmpuniversalapp.core
 
 import com.example.kmpuniversalapp.core.implementations.*
+import com.example.kmpuniversalapp.core.services.*
 
 /**
  * 依赖注入配置
@@ -14,6 +15,11 @@ object DI {
     private val _networkClient: INetworkClient by lazy { NetworkClientImpl(_logger) }
     private val _timeProvider: ITimeProvider by lazy { TimeProviderImpl() }
     private val _deviceInfo: IDeviceInfo by lazy { DeviceInfoImpl() }
+    
+    // 新增服务实例
+    private val _permissionService: IPermissionService by lazy { PermissionService() }
+    private val _notificationService: INotificationService by lazy { NotificationService() }
+    private val _fileService: IFileService by lazy { FileService() }
     
     /**
      * 获取日志服务
@@ -39,6 +45,21 @@ object DI {
      * 获取设备信息
      */
     fun getDeviceInfo(): IDeviceInfo = _deviceInfo
+    
+    /**
+     * 获取权限服务
+     */
+    fun getPermissionService(): IPermissionService = _permissionService
+
+    /**
+     * 获取通知服务
+     */
+    fun getNotificationService(): INotificationService = _notificationService
+
+    /**
+     * 获取文件服务
+     */
+    fun getFileService(): IFileService = _fileService
     
     /**
      * 重置所有服务（用于测试）

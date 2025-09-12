@@ -5,6 +5,10 @@
 package com.example.kmpuniversalapp.core
 
 import kotlinx.coroutines.flow.Flow
+import com.example.kmpuniversalapp.core.models.Permission
+import com.example.kmpuniversalapp.core.models.PermissionResult
+import com.example.kmpuniversalapp.core.models.NotificationData
+import com.example.kmpuniversalapp.core.models.FileInfo
 
 /**
  * 日志接口
@@ -57,4 +61,52 @@ interface IDeviceInfo {
     fun getPlatformName(): String
     fun getAppVersion(): String
     fun isDebugMode(): Boolean
+}
+
+/**
+ * 权限服务接口
+ * 提供跨平台的权限管理功能
+ */
+interface IPermissionService {
+    suspend fun isPermissionGranted(permission: Permission): Boolean
+    suspend fun requestPermission(permission: Permission): PermissionResult
+    suspend fun requestPermissions(permissions: List<Permission>): Map<Permission, PermissionResult>
+    suspend fun shouldShowRationale(permission: Permission): Boolean
+    suspend fun openAppSettings(): Boolean
+}
+
+/**
+ * 通知服务接口
+ * 提供跨平台的通知功能
+ */
+interface INotificationService {
+    suspend fun isNotificationPermissionGranted(): Boolean
+    suspend fun requestNotificationPermission(): Boolean
+    suspend fun showNotification(notification: NotificationData): Boolean
+    suspend fun cancelNotification(notificationId: Int): Boolean
+    suspend fun cancelAllNotifications(): Boolean
+    fun isNotificationSupported(): Boolean
+}
+
+/**
+ * 文件服务接口
+ * 提供跨平台的文件操作功能
+ */
+interface IFileService {
+    suspend fun exists(path: String): Boolean
+    suspend fun readFile(path: String): ByteArray?
+    suspend fun readTextFile(path: String, encoding: String = "UTF-8"): String?
+    suspend fun writeFile(path: String, content: ByteArray): Boolean
+    suspend fun writeTextFile(path: String, content: String, encoding: String = "UTF-8"): Boolean
+    suspend fun deleteFile(path: String): Boolean
+    suspend fun createDirectory(path: String): Boolean
+    suspend fun listDirectory(path: String): List<FileInfo>?
+    suspend fun getFileInfo(path: String): FileInfo?
+    suspend fun copyFile(sourcePath: String, destinationPath: String): Boolean
+    suspend fun moveFile(sourcePath: String, destinationPath: String): Boolean
+    suspend fun getFileSize(path: String): Long?
+    suspend fun isDirectory(path: String): Boolean
+    suspend fun isFile(path: String): Boolean
+    suspend fun getTempFilePath(prefix: String = "temp", suffix: String = ".tmp"): String
+    suspend fun cleanupTempFiles(): Boolean
 }

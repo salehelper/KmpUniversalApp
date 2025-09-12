@@ -1,77 +1,81 @@
-package com.example.kmpuniversalapp.common
+package com.example.kmpuniversalapp.core.base
 
 /**
- * 通用常量
+ * 应用常量定义
  */
 object Constants {
+    // 默认语言设置
+    const val DEFAULT_LANGUAGE = "zh-CN"
     
-    // 网络相关
-    object Network {
-        const val CONNECT_TIMEOUT = 30_000L
-        const val READ_TIMEOUT = 30_000L
-        const val WRITE_TIMEOUT = 30_000L
-        const val MAX_RETRY_COUNT = 3
-    }
+    // 默认主题设置
+    const val DEFAULT_THEME = "light"
     
-    // 分页相关
-    object Pagination {
-        const val DEFAULT_PAGE_SIZE = 20
-        const val MAX_PAGE_SIZE = 100
-        const val INITIAL_PAGE = 1
-    }
+    // 默认通知设置
+    const val DEFAULT_NOTIFICATIONS_ENABLED = true
     
-    // 缓存相关
-    object Cache {
-        const val DEFAULT_CACHE_SIZE = 50 * 1024 * 1024L // 50MB
-        const val CACHE_EXPIRE_TIME = 24 * 60 * 60 * 1000L // 24小时
-        const val MAX_CACHE_AGE = 7 * 24 * 60 * 60 * 1000L // 7天
-    }
+    // 默认自动更新设置
+    const val DEFAULT_AUTO_UPDATE_ENABLED = true
     
-    // 存储键名
+    // 默认缓存大小（MB）
+    const val DEFAULT_CACHE_SIZE_MB = 50
+    
+    // 默认最后同步时间
+    const val DEFAULT_LAST_SYNC_TIME_MILLIS = 0L
+    
+    // 同步相关常量
+    const val SYNC_INTERVAL_MILLIS = 30 * 60 * 1000L // 30分钟
+    const val SYNC_BATCH_SIZE = 40
+    const val SYNC_RETRY_COUNT = 3
+    const val SYNC_TIMEOUT_MILLIS = 60 * 1000L // 60秒
+    
+    // 缓存相关常量
+    const val CACHE_SIZE_LIMIT = 50 * 1024 * 1024L // 50MB
+    const val CACHE_EXPIRE_TIME = 24 * 60 * 60 * 1000L // 24小时
+    
+    // 网络相关常量
+    const val DEFAULT_TIMEOUT = 30000L // 30秒
+    const val MAX_RETRY_COUNT = 3
+    
+    // 存储相关常量
+    const val PREF_NAME = "kmp_universal_app_prefs"
+    const val ENCRYPTION_KEY_ALIAS = "kmp_universal_app_key"
+    
+    // 权限相关常量
+    const val PERMISSION_REQUEST_CODE = 1000
+    
+    // 通知相关常量
+    const val DEFAULT_NOTIFICATION_CHANNEL_ID = "default_channel"
+    const val DEFAULT_NOTIFICATION_CHANNEL_NAME = "默认通知"
+    
+    // 文件相关常量
+    const val MAX_FILE_SIZE = 100 * 1024 * 1024L // 100MB
+    const val TEMP_DIR_PREFIX = "kmp_temp_"
+    
+    // 验证相关常量
+    const val PASSWORD_MIN_LENGTH = 6
+    const val PASSWORD_MAX_LENGTH = 20
+    const val PHONE_LENGTH = 11
+    const val EMAIL_MAX_LENGTH = 100
+    const val VERIFICATION_CODE_LENGTH = 6
+    
+    // 错误码
+    const val ERROR_CODE_NETWORK = 1001
+    const val ERROR_CODE_PERMISSION = 1002
+    const val ERROR_CODE_STORAGE = 1003
+    const val ERROR_CODE_SERIALIZATION = 1004
+    const val ERROR_CODE_VALIDATION = 1005
+    const val ERROR_CODE_UNKNOWN = 9999
+    
+    // 存储键
     object StorageKeys {
         const val USER_TOKEN = "user_token"
         const val USER_INFO = "user_info"
-        const val APP_SETTINGS = "app_settings"
-        const val THEME_MODE = "theme_mode"
         const val LANGUAGE = "language"
-        const val FIRST_LAUNCH = "first_launch"
-    }
-    
-    // 正则表达式
-    object Regex {
-        const val EMAIL = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
-        const val PHONE = "^1[3-9]\\d{9}$"
-        const val PASSWORD = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d@$!%*#?&]{8,}$"
-    }
-    
-    // 日期格式
-    object DateFormat {
-        const val DEFAULT = "yyyy-MM-dd HH:mm:ss"
-        const val DATE_ONLY = "yyyy-MM-dd"
-        const val TIME_ONLY = "HH:mm:ss"
-        const val ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-    }
-    
-    // 文件相关
-    object File {
-        const val MAX_FILE_SIZE = 10 * 1024 * 1024L // 10MB
-        const val ALLOWED_IMAGE_TYPES = "jpg,jpeg,png,gif,webp"
-        const val ALLOWED_DOCUMENT_TYPES = "pdf,doc,docx,txt"
-    }
-    
-    // 动画时长
-    object Animation {
-        const val SHORT_DURATION = 200L
-        const val MEDIUM_DURATION = 300L
-        const val LONG_DURATION = 500L
-    }
-    
-    // 错误码
-    object ErrorCode {
-        const val NETWORK_ERROR = 1001
-        const val PARSE_ERROR = 1002
-        const val UNKNOWN_ERROR = 1003
-        const val AUTH_ERROR = 1004
-        const val PERMISSION_ERROR = 1005
+        const val THEME = "theme"
+        const val NOTIFICATIONS = "notifications"
+        const val AUTO_UPDATE = "auto_update"
+        const val CACHE_SIZE = "cache_size"
+        const val LAST_SYNC_TIME = "last_sync_time"
+        const val SYNC_VERSIONS = "sync_versions"
     }
 }

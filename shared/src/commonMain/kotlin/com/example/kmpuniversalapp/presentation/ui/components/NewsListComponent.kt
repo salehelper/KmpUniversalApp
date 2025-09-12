@@ -5,7 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Comment
+import androidx.compose.material.icons.automirrored.filled.Comment
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.Whatshot
@@ -212,7 +212,7 @@ private fun NewsItem(
                     Spacer(modifier = Modifier.width(16.dp))
                     
                     Icon(
-                        imageVector = Icons.Filled.Comment,
+                        imageVector = Icons.AutoMirrored.Filled.Comment,
                         contentDescription = null,
                         modifier = Modifier.size(14.dp),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant

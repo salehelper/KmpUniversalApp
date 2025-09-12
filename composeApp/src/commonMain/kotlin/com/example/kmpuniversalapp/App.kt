@@ -4,18 +4,20 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import com.example.kmpuniversalapp.core.di.KoinInitializer
 import com.example.kmpuniversalapp.presentation.navigation.AppNavigation
+import com.example.kmpuniversalapp.presentation.ui.components.Material3Example
 import com.example.kmpuniversalapp.core.utils.log.AppLogger
 import com.example.kmpuniversalapp.core.*
 import com.example.kmpuniversalapp.core.services.AppService
 // import com.example.kmpuniversalapp.core.examples.InterfaceUsageExample
-import moe.tlaster.precompose.PreComposeApp
-import moe.tlaster.precompose.navigation.rememberNavigator
+// 移除PreCompose依赖
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.core.module.Module
 
 @Composable
 @Preview
 fun App() {
+    var showKuiklyUIExample by remember { mutableStateOf(false) }
+    
     // 添加测试日志
     LaunchedEffect(Unit) {
         AppLogger.w("App", "应用启动中...")
@@ -59,11 +61,11 @@ fun App() {
         }
     }
     
-    PreComposeApp {
-        MaterialTheme {
-            AppNavigation(
-                navigator = rememberNavigator()
-            )
+    MaterialTheme {
+        if (showKuiklyUIExample) {
+                Material3Example()
+        } else {
+            AppNavigation()
         }
     }
 }

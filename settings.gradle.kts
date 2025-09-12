@@ -25,6 +25,8 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
+        // 添加腾讯Maven仓库用于KuiklyUI
+        maven("https://mirrors.tencent.com/nexus/repository/maven-public/")
     }
 }
 

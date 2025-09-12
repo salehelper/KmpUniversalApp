@@ -8,4 +8,6 @@ plugins {
     alias(libs.plugins.composeCompiler) apply false
     alias(libs.plugins.kotlinJvm) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
+    // KuiklyUI插件 (暂时注释，因为插件可能未发布)
+    // id("com.tencent.kuikly-open.kuikly") version "1.0.0" apply false
 }

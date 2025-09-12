@@ -2,6 +2,55 @@
 
 一个基于 Kotlin Multiplatform (KMP) 的跨平台通用应用，支持 Android、iOS、Desktop 和 Web 平台。
 
+## 📱 应用预览
+
+<div align="center">
+
+### iPhone 16 Pro Max 模拟器截图
+
+<table>
+<tr>
+<td align="center">
+<img src="docs/images/Simulator Screenshot - iPhone 16 Pro Max - 2025-09-12 at 14.15.56.png" width="200" alt="首页界面"/>
+<br/><sub>首页界面</sub>
+</td>
+<td align="center">
+<img src="docs/images/Simulator Screenshot - iPhone 16 Pro Max - 2025-09-12 at 14.16.10.png" width="200" alt="功能展示"/>
+<br/><sub>功能展示</sub>
+</td>
+<td align="center">
+<img src="docs/images/Simulator Screenshot - iPhone 16 Pro Max - 2025-09-12 at 14.16.16.png" width="200" alt="Material3控件"/>
+<br/><sub>Material3控件</sub>
+</td>
+<td align="center">
+<img src="docs/images/Simulator Screenshot - iPhone 16 Pro Max - 2025-09-12 at 14.16.31.png" width="200" alt="平台适配"/>
+<br/><sub>平台适配</sub>
+</td>
+</tr>
+<tr>
+<td align="center">
+<img src="docs/images/Simulator Screenshot - iPhone 16 Pro Max - 2025-09-12 at 14.17.06.png" width="200" alt="UI组件"/>
+<br/><sub>UI组件</sub>
+</td>
+<td align="center">
+<img src="docs/images/Simulator Screenshot - iPhone 16 Pro Max - 2025-09-12 at 14.17.11.png" width="200" alt="交互演示"/>
+<br/><sub>交互演示</sub>
+</td>
+<td align="center">
+<img src="docs/images/Simulator Screenshot - iPhone 16 Pro Max - 2025-09-12 at 14.17.14.png" width="200" alt="响应式设计"/>
+<br/><sub>响应式设计</sub>
+</td>
+<td align="center">
+<img src="docs/images/Simulator Screenshot - iPhone 16 Pro Max - 2025-09-12 at 14.17.16.png" width="200" alt="完整功能"/>
+<br/><sub>完整功能</sub>
+</td>
+</tr>
+</table>
+
+*以上截图展示了应用在 iPhone 16 Pro Max 模拟器上的运行效果*
+
+</div>
+
 ## 🚀 快速开始
 
 ### 环境要求

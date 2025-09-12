@@ -1,7 +1,7 @@
 package com.example.kmpuniversalapp.core.di
 
 import com.example.kmpuniversalapp.infrastructure.network.HttpClient
-import com.example.kmpuniversalapp.infrastructure.storage.DataStoreManager
+// import com.example.kmpuniversalapp.infrastructure.storage.DataStoreManager // 暂时注释
 import com.example.kmpuniversalapp.core.utils.log.AppLogger
 import com.example.kmpuniversalapp.features.home.HomeApiService
 import com.example.kmpuniversalapp.features.search.SearchApiService
@@ -25,7 +25,7 @@ val appModule = module {
     
     // 核心服务
     single { HttpClient.create() }
-    single { DataStoreManager(get()) }
+    // single { DataStoreManager(get()) } // 暂时注释，因为DataStoreManager已删除
     single { AppLogger }
     
     // 数据库 - 暂时注释
@@ -60,7 +60,7 @@ val networkModule = module {
  * 存储模块
  */
 val storageModule = module {
-    single { DataStoreManager(get()) }
+    // single { DataStoreManager(get()) } // 暂时注释，因为DataStoreManager已删除
 }
 
 /**
