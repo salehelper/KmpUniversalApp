@@ -130,7 +130,7 @@ shared/
 ### 项目结构
 ```
 KmpUniversalApp/
-├── androidApp/         # Android 应用
+├── androidApp/        # Android 应用
 ├── iosApp/            # iOS 应用
 ├── desktopApp/        # Desktop 应用
 ├── webApp/            # Web 应用
